@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_moon/widgets/custom_dropdown_btn.dart';
 
 class HomePage extends StatelessWidget {
   late double _deviceHeight, _deviceWidth;
@@ -29,6 +30,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   _pageTitle(),
                   MyWidget(),
+                  TravellersInfoWidget(),
                 ],
               ))),
     );
@@ -59,27 +61,27 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
-    List<String> items = [
-      'James Webb Station',
-      'Preneure Station',
-    ];
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
-        width: _deviceWidth,
-        decoration: BoxDecoration(
-            color: const Color.fromRGBO(53, 53, 53, 1.0),
-            borderRadius: BorderRadius.circular(10)),
-        child: DropdownButton(
-            value: items.first,
-            onChanged: (_) {},
-            items: items.map((e) {
-              return DropdownMenuItem(
-                value: e,
-                child: Text(e),
-              );
-            }).toList(),
-            underline: Container(),
-            dropdownColor: const Color.fromRGBO(53, 53, 53, 1.0),
-            style: const TextStyle(color: Colors.white)));
+    return CustomDropdownBtn(
+      values: const [
+        'James Webb Station',
+        'Preneure Station',
+      ],
+      width: _deviceWidth,
+    );
+  }
+}
+
+class TravellersInfoWidget extends StatelessWidget {
+  late double _deviceHeight, _deviceWidth;
+  TravellersInfoWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    return CustomDropdownBtn(
+      values: const ['1', '2', '3', '4'],
+      width: _deviceWidth * 0.45,
+    );
   }
 }
