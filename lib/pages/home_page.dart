@@ -23,14 +23,21 @@ class HomePage extends StatelessWidget {
               width: _deviceWidth,
               //This padding property is used to make the container in the middle
               padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
                 children: [
-                  _pageTitle(),
-                  MyWidget(),
-                  TravellersInfoWidget(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _pageTitle(),
+                      BookRideWidget(),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: AstroImageWidget(),
+                  ),
                 ],
               ))),
     );
@@ -39,23 +46,42 @@ class HomePage extends StatelessWidget {
 
 //This is the function created saperatly wich can be called as method
 Widget _pageTitle() {
-  return const Text("#Go Moon",
+  return const Text("Go Moon",
       style: TextStyle(
           color: Colors.white, fontSize: 60, fontWeight: FontWeight.w800));
 }
 
-Widget _astroImageWidget() {
-  return Container(
-    decoration: const BoxDecoration(
-        image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage("assets/images/astro_moon.png"))),
-  );
+class AstroImageWidget extends StatelessWidget {
+  late double _deviceHeight, _deviceWidth;
+  AstroImageWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    return Container(
+      height: _deviceHeight * 0.50,
+      width: _deviceWidth * 0.65,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage("assets/images/astro_moon.png"))),
+    );
+  }
 }
 
-class MyWidget extends StatelessWidget {
+// Widget _astroImageWidget() {
+//   return Container(
+//     decoration: const BoxDecoration(
+//         image: DecorationImage(
+//             fit: BoxFit.fill,
+//             image: AssetImage("assets/images/astro_moon.png"))),
+//   );
+// }
+
+class DestinationDropdownWidget extends StatelessWidget {
   late double _deviceHeight, _deviceWidth;
-  MyWidget({Key? key}) : super(key: key);
+  DestinationDropdownWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +105,65 @@ class TravellersInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
-    return CustomDropdownBtn(
-      values: const ['1', '2', '3', '4'],
-      width: _deviceWidth * 0.45,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CustomDropdownBtn(
+          values: const ['1', '2', '3', '4'],
+          width: _deviceWidth * 0.45,
+        ),
+        CustomDropdownBtn(
+          values: const ['Economy', 'Business', 'First', 'Last'],
+          width: _deviceWidth * 0.40,
+        ),
+      ],
     );
+  }
+}
+
+class BookRideWidget extends StatelessWidget {
+  late double _deviceHeight, _deviceWidth;
+  BookRideWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    return Container(
+        height: _deviceHeight * 0.25,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            DestinationDropdownWidget(),
+            TravellersInfoWidget(),
+            RideButton(),
+          ],
+        ));
+  }
+}
+
+class RideButton extends StatelessWidget {
+  late double _deviceHeight, _deviceWidth;
+  RideButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    _deviceHeight = MediaQuery.of(context).size.height;
+    _deviceWidth = MediaQuery.of(context).size.width;
+    return Container(
+        margin: EdgeInsets.only(bottom: _deviceHeight * 0.01),
+        width: _deviceWidth,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        child: MaterialButton(
+            onPressed: () {},
+            child: const Text(
+              "Book Ride",
+              style: TextStyle(color: Colors.black),
+            )));
   }
 }

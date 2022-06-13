@@ -12,8 +12,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: "Go Moon Application",
-        theme:
-            ThemeData(scaffoldBackgroundColor: const Color.fromARGB(255, 31, 31, 31)),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            scaffoldBackgroundColor: const Color.fromARGB(255, 31, 31, 31)),
         home: HomePage());
   }
 }
